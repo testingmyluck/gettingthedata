@@ -1,9 +1,14 @@
+import os
 from flask import Flask, request, jsonify
 from bs4 import BeautifulSoup
 import re
 import json
+import requests
 
 app = Flask(__name__)
+
+# Get the port number from the PORT environment variable, or use a default value (5000)
+port = int(os.environ.get("PORT", 5000))
 
 @app.route('/extract_hls', methods=['POST'])
 def extract_hls():
@@ -40,4 +45,5 @@ def extract_hls():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Run the app on the specified port
+    app.run(host='0.0.0.0', port=port)
