@@ -4,11 +4,15 @@ from bs4 import BeautifulSoup
 import re
 import json
 import requests
+from flask_cors import CORS  # Import Flask-CORS
 
 app = Flask(__name__)
 
 # Get the port number from the PORT environment variable, or use a default value (5000)
 port = int(os.environ.get("PORT", 5000))
+
+# Configure CORS to allow requests from your Blogger site
+CORS(app, resources={r"/extract_hls": {"origins": "https://testingforwidget.blogspot.com"}})
 
 @app.route('/extract_hls', methods=['GET'])
 def extract_hls():
