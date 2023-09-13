@@ -10,11 +10,13 @@ app = Flask(__name__)
 # Get the port number from the PORT environment variable, or use a default value (5000)
 port = int(os.environ.get("PORT", 5000))
 
-@app.route('/extract_hls', methods=['POST'])
+@app.route('/extract_hls', methods=['GET'])
 def extract_hls():
     try:
-        data = request.get_json()
-        video_url = data['video_url']
+        video_url = request.args.get('video_url')
+
+        if not video_url:
+            return jsonify({"error": "Video URL parameter is missing."}), 400
 
         response = requests.get(video_url)
 
@@ -30,11 +32,11 @@ def extract_hls():
                     if match:
                         hls_url = match.group(1)
 
-                    video_info = {
-                        "hls_url": hls_url,
-                    }
+                        video_info = {
+                            "hls_url": hls_url,
+                        }
 
-                    return jsonify(video_info), 200
+                        return jsonify(video_info), 200
 
             return jsonify({"error": "No 'html5player.setVideoHLS' script found on the page."}), 404
 
