@@ -12,7 +12,7 @@ app = Flask(__name__)
 port = int(os.environ.get("PORT", 5000))
 
 # Configure CORS to allow requests from your Blogger site
-CORS(app, resources={r"/extract_hls": {"origins": "https://testingforwidget.blogspot.com", "https://hdxxx-videoz.blogspot.com", "https://www.sexhdvideos.club"}})
+CORS(app, resources={r"/extract_hls": {"origins": "https://hdxxx-videoz.blogspot.com"}})
 
 @app.route('/extract_hls', methods=['GET'])
 def extract_hls():
