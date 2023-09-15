@@ -52,6 +52,8 @@ def extract_hls():
                     mobile_show_inline_match = re.search(r'<strong class="mobile-show-inline">\s*(.*?)\s*</strong>', script_text)
                     if mobile_show_inline_match:
                         mobile_show_inline = mobile_show_inline_match.group(1)
+                        # If found, break out of the loop
+                        break
 
             # Generate a random rating in the range of 70% to 100%
             rating_good_perc = str(random.randint(70, 100)) + '%'
