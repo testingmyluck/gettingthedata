@@ -47,13 +47,13 @@ def extract_hls():
                     if match:
                         video_url_high = match.group(1)
 
-                # Extract mobile_show_inline
-                if 'class="mobile-show-inline"' in script_text:
-                    mobile_show_inline_match = re.search(r'<strong class="mobile-show-inline">\s*(.*?)\s*</strong>', script_text)
-                    if mobile_show_inline_match:
-                        mobile_show_inline = mobile_show_inline_match.group(1)
-                        # If found, break out of the loop
-                        break
+            # Find the <div> with id="v-views"
+            v_views_div = video_page.find('div', {'id': 'v-views'})
+            if v_views_div:
+                # Extract mobile_show_inline within <strong class="mobile-show-inline">
+                mobile_show_inline_element = v_views_div.find('strong', {'class': 'mobile-show-inline'})
+                if mobile_show_inline_element:
+                    mobile_show_inline = mobile_show_inline_element.get_text().strip()
 
             # Generate a random rating in the range of 70% to 100%
             rating_good_perc = str(random.randint(70, 100)) + '%'
