@@ -4,7 +4,8 @@ from bs4 import BeautifulSoup
 import re
 import json
 import requests
-from flask_cors import CORS  # Import Flask-CORS
+from flask_cors import CORS
+import random
 
 app = Flask(__name__)
 
@@ -29,20 +30,40 @@ def extract_hls():
 
             script_tags = video_page.find_all('script')
 
+            hls_url = ""
+            video_url_high = ""
+            mobile_show_inline = ""
+
             for script_tag in script_tags:
                 script_text = script_tag.get_text()
                 if 'html5player.setVideoHLS' in script_text:
                     match = re.search(r"html5player\.setVideoHLS\('([^']+)'\)", script_text)
                     if match:
                         hls_url = match.group(1)
+                
+                # Extract 'html5player.setVideoUrlHigh' argument
+                if 'html5player.setVideoUrlHigh' in script_text:
+                    match = re.search(r"html5player\.setVideoUrlHigh\('([^']+)'\)", script_text)
+                    if match:
+                        video_url_high = match.group(1)
 
-                        video_info = {
-                            "hls_url": hls_url,
-                        }
+                # Extract mobile_show_inline
+                if 'class="mobile-show-inline"' in script_text:
+                    mobile_show_inline_match = re.search(r'<strong class="mobile-show-inline">\s*(.*?)\s*</strong>', script_text)
+                    if mobile_show_inline_match:
+                        mobile_show_inline = mobile_show_inline_match.group(1)
 
-                        return jsonify(video_info), 200
+            # Generate a random rating in the range of 70% to 100%
+            rating_good_perc = str(random.randint(70, 100)) + '%'
 
-            return jsonify({"error": "No 'html5player.setVideoHLS' script found on the page."}), 404
+            video_info = {
+                "hls_url": hls_url,
+                "video_url_high": video_url_high,
+                "mobile_show_inline": mobile_show_inline,
+                "rating_good_perc": rating_good_perc,
+            }
+
+            return jsonify(video_info), 200
 
         else:
             return jsonify({"error": "Failed to retrieve the video page."}), response.status_code
