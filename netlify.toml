@@ -1,2 +1,2 @@
 [build]
-  command = "hls_extractor.py"
+  command = "python hls_extractor.py"
