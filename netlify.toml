@@ -1,3 +1,2 @@
 [build]
-  command = "python hls_extractor.py"  # Adjust the command to run your Flask app
-  publish = ""  # Specify the directory to publish, or leave it empty if you don't have static assets to publish.
+  command = "python hls_extractor.py"
