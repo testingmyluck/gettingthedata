@@ -1,5 +1,2 @@
 [build]
-  command = "pip install -r requirements.txt"
-[build.environment]
-  FLASK_APP = "hls_extractor.py"
-  FLASK_ENV = "production"
+  command = "python hls_extractor.py"
