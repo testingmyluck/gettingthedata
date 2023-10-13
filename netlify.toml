@@ -1,5 +1,5 @@
 [build]
-  command = "bash ./build.sh"
+  command = "pip install -r requirements.txt && python hls_extractor.py"
   publish = "/"
 
 [build.environment]
