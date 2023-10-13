@@ -15,7 +15,7 @@ port = int(os.environ.get("PORT", 5000))
 # Configure CORS to allow requests from multiple websites
 CORS(app, resources={
     r"/extract_hls": {
-        "origins": ["https://hdxxx-videoz.blogspot.com", "https://www.hotnippy.com"]
+        "origins": "*"
     }
 })
 
