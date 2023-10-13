@@ -1,8 +1,3 @@
 [build]
-  command = "pip install -r requirements.txt && python hls_extractor.py"
+  command = "npm install && pip install -r requirements.txt && python hls_extractor.py"
   publish = "/"
-
-[build.environment]
-  FLASK_APP = "hls_extractor.py"
-  FLASK_ENV = "production"
- 
