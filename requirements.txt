@@ -2,4 +2,3 @@ Flask==2.0.2
 requests
 beautifulsoup4
 flask-cors
-Werkzeug==2.0.2
