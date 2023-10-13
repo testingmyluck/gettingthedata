@@ -1,2 +1,2 @@
 [build]
-  command = "python3 hls_extractor.py"
+  command = "pip install -r requirements.txt && hls_extractor.py"
