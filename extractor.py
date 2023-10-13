@@ -1,25 +1,17 @@
+# netlify-functions/extractor.py
+import json
 import os
 from flask import Flask, request, jsonify
 from bs4 import BeautifulSoup
 import re
-import json
 import requests
-from flask_cors import CORS
 import random
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
-# Get the port number from the PORT environment variable, or use a default value (5000)
-port = int(os.environ.get("PORT", 5000))
-
-# Configure CORS to allow requests from multiple websites
-CORS(app, resources={
-    r"/extract_hls": {
-        "origins": "*"
-    }
-})
-
-@app.route('/extract_hls', methods=['GET'])
+@app.route('/.netlify/functions/extractor', methods=['GET'])
 def extract_hls():
     try:
         video_url = request.args.get('video_url')
@@ -44,22 +36,18 @@ def extract_hls():
                     match = re.search(r"html5player\.setVideoHLS\('([^']+)'\)", script_text)
                     if match:
                         hls_url = match.group(1)
-                
-                # Extract 'html5player.setVideoUrlHigh' argument
+
                 if 'html5player.setVideoUrlHigh' in script_text:
                     match = re.search(r"html5player\.setVideoUrlHigh\('([^']+)'\)", script_text)
                     if match:
                         video_url_high = match.group(1)
 
-            # Find the <div> with id="v-views"
             v_views_div = video_page.find('div', {'id': 'v-views'})
             if v_views_div:
-                # Extract mobile_show_inline within <strong class="mobile-show-inline">
                 mobile_show_inline_element = v_views_div.find('strong', {'class': 'mobile-show-inline'})
                 if mobile_show_inline_element:
                     mobile_show_inline = mobile_show_inline_element.get_text().strip()
 
-            # Generate a random rating in the range of 70% to 100%
             rating_good_perc = str(random.randint(70, 100)) + '%'
 
             video_info = {
@@ -78,5 +66,4 @@ def extract_hls():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    # Run the app on the specified port
-    app.run(host='0.0.0.0', port=port)
+    app.run()
