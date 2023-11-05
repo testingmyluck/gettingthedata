@@ -1,7 +1,6 @@
 [build]
-  # This is the build command that Netlify will use to build and run your Flask app.
-  command = "python extractor.py"
+  command = "pip install -r requirements.txt && python extractor.py build"
+  publish = "dist"
 
-# Optional: specify the Python version to use.
-[build.environment]
-  PYTHON_VERSION = "3.9"
+[functions]
+  runtime = "python3.10"
