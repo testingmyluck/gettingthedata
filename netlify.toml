@@ -1,4 +1,6 @@
 [build]
-  command = "pip install -r requirements.txt && python extractor.py build"
+  command = "pip install -r requirements.txt && python extractor.py"
   publish = "dist"
 
+[functions]
+  runtime = { external_node_modules = ["module-one", "module-two"] }
