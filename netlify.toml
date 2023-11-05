@@ -3,4 +3,4 @@
   publish = "dist"
 
 [functions]
-  runtime = "python3.7"
+  runtime = { external_node_modules = ["module-one", "module-two"] }
