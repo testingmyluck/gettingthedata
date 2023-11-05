@@ -4,3 +4,8 @@
 
 [functions]
   runtime = { external_node_modules = ["module-one", "module-two"] }
+
+[build.environment]
+  # Add a pre-build command to remove the cached Python dependencies.
+  # This command removes the cached pip dependencies before installing the new ones.
+  PRE_BUILD = "rm -rf /opt/buildhome/.cache/pip"
