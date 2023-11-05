@@ -1,2 +1,6 @@
 [build]
-  command = "python3 extractor.py"
+  command = "pip install -r requirements.txt && python extractor.py"
+  functions = "functions"
+
+[build.environment]
+  PYTHON_VERSION = "3.9"
