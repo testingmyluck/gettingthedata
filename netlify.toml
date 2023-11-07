@@ -1,6 +1,6 @@
 [build]
-  base = "" # The directory where your Flask app code is located
-  publish = "" # The directory containing the deploy-ready HTML files and assets
+  base = ""
+  publish = ""
   command = "pip install -r requirements.txt && gunicorn extractor:app"
 
 [build.environment]
@@ -11,6 +11,8 @@
   package = "@netlify/plugin-lighthouse"
 
 [context.production]
-  publish = "output/" # The directory for production deploys
-  command = "make publish"
-  environment = { NODE_VERSION = "14.15.3" }
+  publish = ""
+  command = "pip install -r requirements.txt && gunicorn extractor:app"
+  environment = {
+    FLASK_ENV = "production"
+  }
