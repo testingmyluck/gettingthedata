@@ -1,0 +1,6 @@
+[build]
+  command = "python -m pip install -r requirements.txt && gunicorn extractor:app"
+
+[build.environment]
+  FLASK_APP = "extractor.py"
+  FLASK_ENV = "production"
