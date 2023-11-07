@@ -1,7 +1,7 @@
 [build]
   base = "" # The directory where your Flask app code is located
   publish = "" # The directory containing the deploy-ready HTML files and assets
-  command = "gunicorn -b 0.0.0.0:$PORT extractor:app"
+  command = "gunicorn -b 0.0.0.0:PORT extractor:app"
 
 [build.environment]
   FLASK_APP = "extractor.py"
