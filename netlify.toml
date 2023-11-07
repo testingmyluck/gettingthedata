@@ -1,6 +1,25 @@
 [build]
-  command = "python -m pip install -r requirements.txt && gunicorn extractor:app"
+  # The root directory contains your Flask application code and other files.
+  base = "/"
+
+  # The root directory contains the deploy-ready HTML files and assets.
+  publish = "/"
+
+  # Build command for your Flask app
+  command = "python -m pip install -r requirements.txt && python -m pip install gunicorn && gunicorn extractor:app"
 
 [build.environment]
   FLASK_APP = "extractor.py"
   FLASK_ENV = "production"
+
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+
+[context.production]
+  # This context is for production deploys.
+  # Assumes that the publish and base directories are both the root directory.
+  publish = "/"
+  command = "python -m pip install -r requirements.txt && python -m pip install gunicorn && gunicorn extractor:app"
+  environment = {
+    FLASK_ENV = "production"
+  }
