@@ -6,3 +6,4 @@
 [build.environment]
   FLASK_APP = "extractor.py"
   FLASK_ENV = "production"
+  PYTHON_VERSION = "3.8"
