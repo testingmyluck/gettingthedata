@@ -1,18 +1,8 @@
 [build]
-  base = ""
-  publish = ""
+  base = "" # The directory where your Flask app code is located
+  publish = "" # The directory containing the deploy-ready HTML files and assets
   command = "pip install -r requirements.txt && gunicorn extractor:app"
 
 [build.environment]
   FLASK_APP = "extractor.py"
   FLASK_ENV = "production"
-
-[[plugins]]
-  package = "@netlify/plugin-lighthouse"
-
-[context.production]
-  publish = ""
-  command = "pip install -r requirements.txt && gunicorn extractor:app"
-  environment = {
-    FLASK_ENV = "production"
-  }
