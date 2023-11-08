@@ -1,9 +1,11 @@
-[build]
-  base = ""  # The directory where your Flask app code is located
-  publish = ""  # The directory containing the deploy-ready HTML files and assets
-  command = "gunicorn -b 0.0.0.0:8080 extractor:app"  # Use a specific port (e.g., 8080)
+[[plugins]]
+package = "netlify-plugin-nimbella"
 
-[build.environment]
-  FLASK_APP = "extractor.py"
-  FLASK_ENV = "production"
-  PYTHON_VERSION = "3.8"
+[build]
+  base = "."
+  publish = "public"
+  command = "# no build step"
+
+[nimbella]
+  # Base path that you want to use to access functions. Example https://your-site.com/api/default/greet
+  path = "/api/"
